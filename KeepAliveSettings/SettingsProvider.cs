@@ -1,0 +1,80 @@
+﻿using System.Diagnostics;
+using System.Text.Json;
+
+using Windows.ApplicationModel;
+
+namespace KeepAliveSettings;
+
+public static class SettingsProvider
+{
+  private static readonly string settingsFilePath = Path.Combine(AppContext.BaseDirectory, "..", "settings.json");
+  private static readonly Mutex mutex = new(false, """Local\BlutoothAudioKeepAlive.MUTEX.Settings""");
+
+  static SettingsProvider()
+  {
+    AppDomain.CurrentDomain.ProcessExit += (s, e) => mutex.Dispose();
+  }
+
+  private static readonly JsonSerializerOptions jsonSerializerOptions = new() { WriteIndented = true };
+  public static bool Save(Settings settings)
+  {
+    try
+    {
+      mutex.WaitOne();
+      string jsonString = JsonSerializer.Serialize(settings, jsonSerializerOptions);
+      File.WriteAllText(settingsFilePath, jsonString);
+      return true;
+    }
+    catch
+    {
+      return false;
+    }
+    finally
+    {
+      mutex.ReleaseMutex();
+    }
+  }
+
+  public static Settings Load()
+  {
+    Settings? settings = null;
+    try
+    {
+      mutex.WaitOne();
+      if (File.Exists(settingsFilePath))
+      {
+        string jsonString = File.ReadAllText(settingsFilePath);
+        settings = JsonSerializer.Deserialize<Settings>(jsonString);
+      }
+    }
+    finally
+    {
+      mutex.ReleaseMutex();
+    }
+
+    return settings ?? new();
+  }
+
+  // StartupTask
+  public static async Task<bool> GetStartupTaskState()
+  {
+    StartupTask startupTask = await StartupTask.GetAsync("StartupTaskId");
+    return startupTask.State is StartupTaskState.Enabled or StartupTaskState.EnabledByPolicy;
+  }
+
+  public static async Task<bool> ToggleStartupTaskState()
+  {
+    StartupTask startupTask = await StartupTask.GetAsync("StartupTaskId");
+    switch (startupTask.State)
+    {
+      case StartupTaskState.Enabled:
+        startupTask.Disable();
+        return false;
+      case StartupTaskState.EnabledByPolicy:
+        return true;
+      default:
+        await startupTask.RequestEnableAsync();
+        return await GetStartupTaskState();
+    }
+  }
+}

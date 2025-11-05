@@ -1,0 +1,12 @@
+{
+  "solution": {
+    "path": "Bluetooth Audio KeepAlive.slnx",
+    "projects": [
+      "Bluetooth Audio KeepAlive\\Bluetooth Audio KeepAlive.wapproj",
+      "Interop\\Interop.csproj",
+      "KeepAliveApp\\KeepAliveApp.csproj",
+      "KeepAliveService\\KeepAliveService.csproj",
+      "KeepAliveSettings\\KeepAliveSettings.csproj"
+    ]
+  }
+}

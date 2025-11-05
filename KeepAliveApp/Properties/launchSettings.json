@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "KeepAliveApp (Package)": {
+      "commandName": "MsixPackage"
+    },
+    "KeepAliveApp (Unpackaged)": {
+      "commandName": "Project"
+    }
+  }
+}
