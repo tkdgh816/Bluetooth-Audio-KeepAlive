@@ -1,4 +1,5 @@
 using Microsoft.UI.Xaml.Media.Animation;
+using Microsoft.Windows.Globalization;
 
 namespace KeepAliveApp.Controls;
 
@@ -18,7 +19,6 @@ public sealed partial class DurationPickerFlyoutPresenter : FlyoutPresenter
     };
 
     this.Loaded += (s, e) => VisualStateManager.GoToState(this, "FlyoutOpen", false);
-    this.Closed += (s, e) => VisualStateManager.GoToState(this, "FlyoutClosed", false);
   }
 
   private readonly DurationPickerEventHelper? DurationPickerEventHelper;
@@ -44,6 +44,10 @@ public sealed partial class DurationPickerFlyoutPresenter : FlyoutPresenter
   private static readonly double _interval = 40.0;
 
   public event EventHandler<object, EventArgs>? Closed;
+
+  private TextBlock FirstHeaderHostTextBlock = null!;
+  private TextBlock SecondHeaderHostTextBlock = null!;
+  private TextBlock ThirdHeaderHostTextBlock = null!;
 
   private Grid PickerHostGrid = null!;
 
@@ -74,6 +78,31 @@ public sealed partial class DurationPickerFlyoutPresenter : FlyoutPresenter
   protected override void OnApplyTemplate()
   {
     base.OnApplyTemplate();
+
+    string language;
+    (string H, string M, string S) timeString;
+    try
+    {
+      language = ApplicationLanguages.Languages[0].ToLower();
+      timeString = language switch
+      {
+        "en" => ("hours", "minutes", "seconds"),
+        "ko" => ("시간", "분", "초"),
+        _ => ("hours", "minutes", "seconds")
+      };
+    }
+    catch
+    {
+      timeString = ("hours", "minutes", "seconds");
+    }
+
+    FirstHeaderHostTextBlock = (TextBlock)GetTemplateChild("FirstHeaderHostTextBlock");
+    SecondHeaderHostTextBlock = (TextBlock)GetTemplateChild("SecondHeaderHostTextBlock");
+    ThirdHeaderHostTextBlock = (TextBlock)GetTemplateChild("ThirdHeaderHostTextBlock");
+
+    FirstHeaderHostTextBlock.Text = timeString.H;
+    SecondHeaderHostTextBlock.Text = timeString.M;
+    ThirdHeaderHostTextBlock.Text = timeString.S;
 
     PickerHostGrid = (Grid)GetTemplateChild("PickerHostGrid");
 
@@ -145,10 +174,7 @@ public sealed partial class DurationPickerFlyoutPresenter : FlyoutPresenter
       Closed?.Invoke(this, EventArgs.Empty);
     };
     DismissButton = (Button)GetTemplateChild("DismissButton");
-    DismissButton.Click += (s, e) =>
-    {
-      Closed?.Invoke(this, EventArgs.Empty);
-    };
+    DismissButton.Click += (s, e) => Closed?.Invoke(this, EventArgs.Empty);
   }
 
   private TypedEventHandler<ItemsRepeater, ItemsRepeaterElementPreparedEventArgs> CreateElementPreparedEventHandler(ScrollPresenter presenter) =>
@@ -180,6 +206,20 @@ public sealed partial class DurationPickerFlyoutPresenter : FlyoutPresenter
     FirstPickerHostScrollPresenter.ScrollTo(0, (Duration.Hours + 1) * _interval, scrollOptions);
     SecondPickerHostScrollPresenter.ScrollTo(0, (Duration.Minutes + 1) * _interval, scrollOptions);
     ThirdPickerHostScrollPresenter.ScrollTo(0, (Duration.Seconds + 1) * _interval, scrollOptions);
+  }
+
+  private void RevertClock()
+  {
+    ScrollingScrollOptions scrollOptions = new(ScrollingAnimationMode.Disabled);
+    FirstPickerHostScrollPresenter.ScrollTo(0, (Hour + 1) * _interval, scrollOptions);
+    SecondPickerHostScrollPresenter.ScrollTo(0, (Minute + 1) * _interval, scrollOptions);
+    ThirdPickerHostScrollPresenter.ScrollTo(0, (Second + 1) * _interval, scrollOptions);
+  }
+
+  public void Close()
+  {
+    RevertClock();
+    VisualStateManager.GoToState(this, "FlyoutClosed", false);
   }
 
   private void PickerHost_PointerExited(object sender, PointerRoutedEventArgs e) => VisualStateManager.GoToState(this, "HostPointerOverNone", false);

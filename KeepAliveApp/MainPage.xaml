@@ -19,58 +19,40 @@
       <RowDefinition />
     </Grid.RowDefinitions>
 
-    <TextBlock Grid.Row="0"
-               Text="Settings"
+    <TextBlock x:Uid="View_TitleTextBlock"
+               Grid.Row="0"
                Style="{StaticResource TitleTextBlockStyle}"
                Margin="24,8,0,24" />
 
     <ScrollView Grid.Row="1"
                 ContentOrientation="Vertical">
       <StackPanel Padding="24,0,24,40"
-                  Spacing="12">
+                  Spacing="4">
 
-        <toolkit:SettingsCard Header="실행 상태"
-                              HeaderIcon="More"
-                              Description="상세 설정을 변경하려면 실행 상태를 끔으로 변경하세요.">
-          <ToggleSwitch x:Name="View_ChekckServiceToggleSwitch"
-                        IsOn="{x:Bind ViewModel.Settings.IsKeepAlivePlayerActive, Mode=TwoWay}"
-                        OnContent="Running"
-                        OffContent="Stopped" />
+        <TextBlock x:Uid="View_BackgroundOperationGroupTextBlock"
+                   Style="{StaticResource BodyStrongTextBlockStyle}"
+                   Margin="0,0,0,4" />
+        <toolkit:SettingsCard x:Uid="View_RunningStateSettingsCard"
+                              HeaderIcon="More">
+          <toolkit:SettingsCard.Description>
+            <TextBlock x:Uid="View_RunningStateDescriptionTextBlock"
+                       Visibility="{x:Bind ViewModel.Settings.IsKeepAliveServiceActive, Mode=OneWay}" />
+          </toolkit:SettingsCard.Description>
+
+          <ToggleSwitch x:Uid="View_RunningStateToggleSwitch"
+                        IsOn="{x:Bind ViewModel.Settings.IsKeepAliveServiceActive, Mode=TwoWay}"
+                        IsEnabled="{x:Bind ViewModel.CanChangeRunningState, Mode=OneWay}" />
         </toolkit:SettingsCard>
 
-        <StackPanel>
-          <toolkit:SettingsCard Header="시작 시 실행"
-                                HeaderIcon="Play"
-                                Description="시작 앱에 등록하여 시작 시 자동으로 실행합니다.">
-            <ToggleSwitch x:Name="View_StartupTaskToggleSwitch"
-                          Toggled="View_StartupTaskToggleSwitch_Toggled" />
-          </toolkit:SettingsCard>
-          <InfoBar x:Name="View_StartupTaskInfoBar"
-                   IsOpen="True"
-                   Severity="Warning"
-                   Title="시작 앱 등록이 사용자에 의해 해제되었습니다."
-                   Message="앱 설정의 [로그인하여 실행]에서 시작 상태를 직접 변경하세요."
-                   IsClosable="False"
-                   Visibility="Collapsed"
-                   CornerRadius="0,0,4,4"
-                   BorderThickness="1,0,1,1"
-                   Canvas.ZIndex="-1">
-            <InfoBar.ActionButton>
-              <Button x:Name="View_ViewStartupTaskSettingsButton"
-                      Content="앱 설정 열기"
-                      HorizontalAlignment="Right"
-                      Click="View_ViewStartupTaskSettingsButton_Click" />
-            </InfoBar.ActionButton>
-          </InfoBar>
-        </StackPanel>
-
-        <toolkit:SettingsExpander Header="선택한 블루투스 기기만 연결 유지"
+        <TextBlock x:Uid="View_KeepaliveGroupTextBlock"
+                   Style="{StaticResource BodyStrongTextBlockStyle}"
+                   Margin="0,8,0,4" />
+        <toolkit:SettingsExpander x:Uid="View_SelectedDevicesSettingsExpander"
                                   HeaderIcon="Accept"
-                                  Description="옵션을 끄면 실행 중일 때 항상 연결 유지 신호를 보냅니다."
                                   IsExpanded="{x:Bind ViewModel.Settings.ApplyToSelectedDevices, Mode=OneWay}"
                                   ItemsSource="{x:Bind ViewModel.UserDevices}">
           <ToggleSwitch IsOn="{x:Bind ViewModel.Settings.ApplyToSelectedDevices, Mode=TwoWay}"
-                        IsEnabled="{x:Bind ViewModel.NegateBool(ViewModel.Settings.IsKeepAlivePlayerActive), Mode=OneWay}" />
+                        IsEnabled="{x:Bind ViewModel.NegateBool(ViewModel.Settings.IsKeepAliveServiceActive), Mode=OneWay}" />
 
           <toolkit:SettingsExpander.ItemTemplate>
             <DataTemplate x:DataType="local:UserDevice">
@@ -82,7 +64,7 @@
                 <toolkit:SettingsCard.Description>
                   <StackPanel Orientation="Horizontal"
                               Spacing="12">
-                    <TextBlock Text="{x:Bind IsConnected, Mode=OneWay}" />
+                    <TextBlock Text="{x:Bind ParseDeviceConnectionState(IsConnected), Mode=OneWay}" />
 
                     <TextBlock Text="{x:Bind BluetoothDevice.HostName}"
                                Width="120" />
@@ -93,31 +75,35 @@
           </toolkit:SettingsExpander.ItemTemplate>
         </toolkit:SettingsExpander>
 
-        <toolkit:SettingsCard Header="반복 주기"
-                              HeaderIcon="Sync"
-                              Description="오디오를 반복할 시간">
+        <toolkit:SettingsCard x:Uid="View_KeepaliveIntervalSettingsCard"
+                              HeaderIcon="Sync">
           <controls:DurationPicker Duration="{x:Bind ViewModel.Settings.KeepAliveInterval, Mode=TwoWay}"
-                                   IsEnabled="{x:Bind ViewModel.NegateBool(ViewModel.Settings.IsKeepAlivePlayerActive), Mode=OneWay}" />
+                                   IsEnabled="{x:Bind ViewModel.NegateBool(ViewModel.Settings.IsKeepAliveServiceActive), Mode=OneWay}" />
         </toolkit:SettingsCard>
 
-        <toolkit:SettingsCard Header="오디오 선택"
-                              HeaderIcon="Volume"
-                              Description="오디오">
+        <toolkit:SettingsCard x:Uid="View_KeepaliveAudioSettingsCard"
+                              HeaderIcon="Volume">
           <StackPanel Orientation="Horizontal"
                       Spacing="8">
-            <ComboBox x:Name="View_SoundTestComboBox"
+            <ComboBox x:Name="View_KeepaliveAudioComboBox"
                       SelectedIndex="{x:Bind ViewModel.Settings.SoundKind, Converter={StaticResource SoundKindToIntConverter}, Mode=TwoWay}"
-                      IsEnabled="{x:Bind ViewModel.NegateBool(ViewModel.Settings.IsKeepAlivePlayerActive), Mode=OneWay}">
-              <ComboBoxItem Content="Silent (1-second)" />
-              <ComboBoxItem Content="Silent (5-second)" />
-              <ComboBoxItem Content="Beep 1" />
-              <ComboBoxItem Content="Beep 2" />
-              <ComboBoxItem Content="Beep 3" />
-              <ComboBoxItem Content="Beep 4" />
+                      IsEnabled="{x:Bind ViewModel.NegateBool(ViewModel.Settings.IsKeepAliveServiceActive), Mode=OneWay}">
+              <ComboBoxItem x:Uid="View_KeepaliveAudioComboBoxItem_Silent1"
+                            Tag="Silent1" />
+              <ComboBoxItem x:Uid="View_KeepaliveAudioComboBoxItem_Silent2"
+                            Tag="Silent2" />
+              <ComboBoxItem x:Uid="View_KeepaliveAudioComboBoxItem_Beep1"
+                            Tag="Beep1" />
+              <ComboBoxItem x:Uid="View_KeepaliveAudioComboBoxItem_Beep2"
+                            Tag="Beep2" />
+              <ComboBoxItem x:Uid="View_KeepaliveAudioComboBoxItem_Beep3"
+                            Tag="Beep3" />
+              <ComboBoxItem x:Uid="View_KeepaliveAudioComboBoxItem_Beep4"
+                            Tag="Beep4" />
             </ComboBox>
 
             <Button Command="{x:Bind ViewModel.PlayTestSoundButtonClickCommand}"
-                    CommandParameter="{x:Bind View_SoundTestComboBox.SelectedIndex, Mode=OneWay}"
+                    CommandParameter="{x:Bind View_KeepaliveAudioComboBox.SelectedIndex, Mode=OneWay}"
                     Padding="8,6">
               <FontIcon Glyph="&#xE768;"
                         FontSize="16" />
@@ -130,31 +116,136 @@
           </StackPanel>
         </toolkit:SettingsCard>
 
-        <toolkit:SettingsCard Header="앱 종료"
-                              HeaderIcon="Clear"
-                              Description="백그라운드에서 실행되는 연결 유지 신호 재생을 포함한 앱의 모든 프로세스를 완전히 종료합니다.">
-          <Button Content="End" 
-                  Click="Button_Click"/>
-        </toolkit:SettingsCard>
-        
-        <toolkit:SettingsExpander Header="Bluetooth Audio KeepAlive"
-                                  Description="© 2025. ZeroFinchNeil. All rights reserved.">
-          <toolkit:SettingsExpander.HeaderIcon>
-            <ImageIcon Source="/Assets/BluetoothAudioKeepAlive_128.png" />
-          </toolkit:SettingsExpander.HeaderIcon>
+        <!--<toolkit:SettingsExpander Header="오디오 선택"
+                                  HeaderIcon="Volume"
+                                  Description="오디오">
+          <StackPanel Orientation="Horizontal"
+                      Spacing="8">
+            <ComboBox x:Name="View_KeepaliveAudioComboBox"
+                      SelectedIndex="{x:Bind ViewModel.Settings.SoundKind, Converter={StaticResource SoundKindToIntConverter}, Mode=TwoWay}"
+                      IsEnabled="{x:Bind ViewModel.NegateBool(ViewModel.Settings.IsKeepAliveServiceActive), Mode=OneWay}">
+              <ComboBoxItem Content="Silent (1-second)" />
+              <ComboBoxItem Content="Silent (5-second)" />
+              <ComboBoxItem Content="Beep 1" />
+              <ComboBoxItem Content="Beep 2" />
+              <ComboBoxItem Content="Beep 3" />
+              <ComboBoxItem Content="Beep 4" />
+            </ComboBox>
 
-          <toolkit:SettingsExpander.Content>
-            <TextBlock Text="v1.0.0.0"
-                       Foreground="{ThemeResource TextFillColorSecondaryBrush}" />
-          </toolkit:SettingsExpander.Content>
+            <Button Command="{x:Bind ViewModel.PlayTestSoundButtonClickCommand}"
+                    CommandParameter="{x:Bind View_KeepaliveAudioComboBox.SelectedIndex, Mode=OneWay}"
+                    Padding="8,6">
+              <FontIcon Glyph="&#xE768;"
+                        FontSize="16" />
+            </Button>
+            <Button Command="{x:Bind ViewModel.StopTestSoundButtonClickCommand}"
+                    Padding="8,6">
+              <FontIcon Glyph="&#xE769;"
+                        FontSize="16" />
+            </Button>
+          </StackPanel>
+
           <toolkit:SettingsExpander.Items>
-            <toolkit:SettingsCard ContentAlignment="Left">
+            <toolkit:SettingsCard Header="사용자 정의 오디오"
+                                  HeaderIcon="Volume"
+                                  Description="사용자 정의 오디오">
+              <Button Content="파일 선택" />
+            </toolkit:SettingsCard>
 
-              <TextBlock Text="Text" />
+            <toolkit:SettingsCard Header="볼륨"
+                                  HeaderIcon="Volume"
+                                  Description="볼륨 조절">
+              <Slider Width="200" />
             </toolkit:SettingsCard>
           </toolkit:SettingsExpander.Items>
-        </toolkit:SettingsExpander>
+        </toolkit:SettingsExpander>-->
+
+        <TextBlock x:Uid="View_GeneralGroupTextBlock"
+                   Style="{StaticResource BodyStrongTextBlockStyle}"
+                   Margin="0,8,0,4" />
+        <StackPanel>
+          <toolkit:SettingsCard x:Name="View_StartupTaskSettingsCard"
+                                x:Uid="View_StartupTaskSettingsCard"
+                                HeaderIcon="Play">
+            <ToggleSwitch x:Name="View_StartupTaskToggleSwitch"
+                          Toggled="View_StartupTaskToggleSwitch_Toggled" />
+          </toolkit:SettingsCard>
+          <InfoBar x:Name="View_StartupTaskInfoBar"
+                   x:Uid="View_StartupTaskInfoBar"
+                   IsOpen="True"
+                   Severity="Warning"
+                   IsClosable="False"
+                   Visibility="Collapsed"
+                   CornerRadius="0,0,4,4"
+                   BorderThickness="1,0,1,1"
+                   Canvas.ZIndex="-1">
+            <InfoBar.ActionButton>
+              <Button x:Name="View_ViewStartupTaskSettingsButton"
+                      x:Uid="View_ViewStartupTaskSettingsButton"
+                      HorizontalAlignment="Right"
+                      Click="View_ViewStartupTaskSettingsButton_Click" />
+            </InfoBar.ActionButton>
+
+            <InfoBar.RenderTransform>
+              <TranslateTransform x:Name="View_StartupTaskInfoBar_TranslateTransform" />
+            </InfoBar.RenderTransform>
+          </InfoBar>
+        </StackPanel>
+
+        <toolkit:SettingsCard x:Uid="View_QuitSettingsCard"
+                              HeaderIcon="Clear">
+          <Button x:Name="View_QuitButton"
+                  Content="Quit"
+                  Click="View_QuitButton_Click" />
+        </toolkit:SettingsCard>
+
+        <TextBlock x:Uid="View_AboutGroupTextBlock"
+                   Style="{StaticResource BodyStrongTextBlockStyle}"
+                   Margin="0,8,0,4" />
+        <toolkit:SettingsCard Header="Bluetooth Audio KeepAlive"
+                              Description="© 2025. ZeroFinchNeil. All rights reserved.">
+          <toolkit:SettingsCard.HeaderIcon>
+            <ImageIcon Source="/Assets/BluetoothAudioKeepAlive_128.png" />
+          </toolkit:SettingsCard.HeaderIcon>
+
+          <toolkit:SettingsCard.Content>
+            <TextBlock Text="v1.0.0.0"
+                       Foreground="{ThemeResource TextFillColorSecondaryBrush}" />
+          </toolkit:SettingsCard.Content>
+        </toolkit:SettingsCard>
       </StackPanel>
     </ScrollView>
+
+    <VisualStateManager.VisualStateGroups>
+      <VisualStateGroup>
+        <VisualState x:Name="View_StartupTaskNormalState" />
+        <VisualState x:Name="View_StartupTaskWarningState">
+          <VisualState.Setters>
+            <Setter Target="View_StartupTaskSettingsCard.CornerRadius"
+                    Value="4,4,0,0" />
+            <Setter Target="View_StartupTaskInfoBar.Visibility"
+                    Value="Visible" />
+          </VisualState.Setters>
+          <Storyboard>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="View_StartupTaskInfoBar"
+                                           Storyboard.TargetProperty="Opacity">
+              <DiscreteDoubleKeyFrame KeyTime="0:0:0"
+                                      Value="0" />
+              <SplineDoubleKeyFrame KeyTime="0:0:0.167"
+                                    KeySpline="0.30,0.30 0,0.95"
+                                    Value="1" />
+            </DoubleAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="View_StartupTaskInfoBar_TranslateTransform"
+                                           Storyboard.TargetProperty="Y">
+              <DiscreteDoubleKeyFrame KeyTime="0:0:0"
+                                      Value="-32" />
+              <SplineDoubleKeyFrame KeyTime="0:0:0.167"
+                                    KeySpline="0.30,0.30 0,0.95"
+                                    Value="0" />
+            </DoubleAnimationUsingKeyFrames>
+          </Storyboard>
+        </VisualState>
+      </VisualStateGroup>
+    </VisualStateManager.VisualStateGroups>
   </Grid>
 </Page>

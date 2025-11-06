@@ -16,9 +16,10 @@ namespace KeepAliveApp;
 public class MainViewModel : ObservableObject, IDisposable
 {
   private readonly DispatcherQueue _dispatcherQueue = DispatcherQueue.GetForCurrentThread();
+  private FileSystemWatcher? _userAudioWatcher;
   private readonly DeviceWatcher _btDeviceWatcher;
 
-  public Settings Settings { get; private set; } = null!;
+  public Settings Settings { get; } = Program.Settings;
   public ObservableCollection<UserDevice> UserDevices { get; } = new();
 
   public MainViewModel()
@@ -30,7 +31,6 @@ public class MainViewModel : ObservableObject, IDisposable
 
   private void Initialize()
   {
-    Settings = SettingsProvider.Load();
     Settings.PropertyChanged += Settings_PropertyChanged;
 
     _btDeviceWatcher.Added += BTDevice_Added;
@@ -39,12 +39,21 @@ public class MainViewModel : ObservableObject, IDisposable
     _btDeviceWatcher.Start();
   }
 
+  public bool CanChangeRunningState
+  {
+    get;
+    set => SetProperty(ref field, value);
+  } = true;
+
   private void Settings_PropertyChanged(object? sender, System.ComponentModel.PropertyChangedEventArgs e)
   {
     switch (e.PropertyName)
     {
-      case nameof(Settings.IsKeepAlivePlayerActive):
-        //Program.ToggleKeepAliveService(Settings);
+      case nameof(Settings.IsKeepAliveServiceActive):
+        if (Settings.IsKeepAliveServiceActive)
+          Program.LaunchKeepAliveService();
+        else
+          Program.QuitKeepAliveService();
         break;
     }
   }
@@ -55,7 +64,7 @@ public class MainViewModel : ObservableObject, IDisposable
     {
       Settings = Settings,
       DispatcherQueue = _dispatcherQueue,
-      IsEditable = !Settings.IsKeepAlivePlayerActive,
+      IsEditable = !Settings.IsKeepAliveServiceActive,
       IsEnabled = Settings.ApplyToSelectedDevices,
       IsSelected = Settings.SelectedDevices.Any(id => id == deviceInformation.Id)
     };
@@ -67,8 +76,8 @@ public class MainViewModel : ObservableObject, IDisposable
         case nameof(Settings.ApplyToSelectedDevices):
           userDevice.IsEnabled = Settings.ApplyToSelectedDevices;
           break;
-        case nameof(Settings.IsKeepAlivePlayerActive):
-          userDevice.IsEditable = !Settings.IsKeepAlivePlayerActive;
+        case nameof(Settings.IsKeepAliveServiceActive):
+          userDevice.IsEditable = !Settings.IsKeepAliveServiceActive;
           break;
       }
     };
@@ -149,7 +158,7 @@ public class MainViewModel : ObservableObject, IDisposable
         {
           Source = MediaSource.CreateFromUri(new Uri($"ms-appx:///Assets/Media/{fileName}.wav")),
           AudioCategory = MediaPlayerAudioCategory.Media,
-          AutoPlay = false
+          AutoPlay = false,
         };
         _testSoundPlayer.MediaEnded += Player_MediaEnded;
         _testSoundPlayer.Play();

@@ -12,10 +12,18 @@
 
   <ItemGroup>
     <Content Include="BluetoothAudioKeepAlive_128.ico" />
+    <None Include="Assets\**\*">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="CommunityToolkit.Mvvm" Version="8.4.0" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\Interop\Interop.csproj" />
+    <ProjectReference Include="..\KeepAliveSettings\KeepAliveSettings.csproj" />
   </ItemGroup>
 
 </Project>

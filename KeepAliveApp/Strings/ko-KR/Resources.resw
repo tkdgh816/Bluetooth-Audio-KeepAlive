@@ -1,0 +1,230 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="View_RunningStateSettingsCard.Header" xml:space="preserve">
+    <value>연결 유지 동작 상태 (백그라운드 프로세스)</value>
+  </data>
+  <data name="View_TitleTextBlock.Text" xml:space="preserve">
+    <value>설정</value>
+  </data>
+  <data name="View_RunningStateDescriptionTextBlock.Text" xml:space="preserve">
+    <value>연결 유지 설정을 변경하려면, 스위치를 [중지됨]으로 전환하여 서비스를 중지하세요.</value>
+  </data>
+  <data name="View_RunningStateToggleSwitch.OffContent" xml:space="preserve">
+    <value>중지됨</value>
+  </data>
+  <data name="View_RunningStateToggleSwitch.OnContent" xml:space="preserve">
+    <value>실행 중</value>
+  </data>
+  <data name="View_StartupTaskSettingsCard.Header" xml:space="preserve">
+    <value>시스템 시작 시 실행</value>
+  </data>
+  <data name="View_StartupTaskSettingsCard.Description" xml:space="preserve">
+    <value>시스템 시작 시 백그라운드 서비스를 자동으로 실행합니다.</value>
+  </data>
+  <data name="View_StartupTaskInfoBar.Title" xml:space="preserve">
+    <value>사용자가 시작 앱 등록을 비활성화했습니다.</value>
+  </data>
+  <data name="View_StartupTaskInfoBar.Message" xml:space="preserve">
+    <value>Windows 설정의 [로그인하여 실행] 섹션에서 시작 상태를 [켬]으로 변경하세요.</value>
+  </data>
+  <data name="View_ViewStartupTaskSettingsButton.Content" xml:space="preserve">
+    <value>앱 설정 열기</value>
+  </data>
+  <data name="View_SelectedDevicesSettingsExpander.Header" xml:space="preserve">
+    <value>선택한 블루투스 기기만 연결 유지 신호 보내기</value>
+  </data>
+  <data name="View_SelectedDevicesSettingsExpander.Description" xml:space="preserve">
+    <value>옵션을 끄면 서비스가 실행 중일 때 항상 연결 유지 신호를 보냅니다.</value>
+  </data>
+  <data name="View_BackgroundOperationGroupTextBlock.Text" xml:space="preserve">
+    <value>백그라운드 동작</value>
+  </data>
+  <data name="View_KeepaliveIntervalSettingsCard.Header" xml:space="preserve">
+    <value>연결 유지 반복 주기</value>
+  </data>
+  <data name="View_KeepaliveIntervalSettingsCard.Description" xml:space="preserve">
+    <value>연결 유지 신호 사이의 간격을 설정합니다.</value>
+  </data>
+  <data name="View_KeepaliveAudioSettingsCard.Header" xml:space="preserve">
+    <value>연결 유지 신호용 오디오</value>
+  </data>
+  <data name="View_KeepaliveAudioSettingsCard.Description" xml:space="preserve">
+    <value>블루투스 기기에 전송할 연결 유지 신호용 오디오를 선택하세요.</value>
+  </data>
+  <data name="View_KeepaliveAudioComboBoxItem_Silent1.Content" xml:space="preserve">
+    <value>무음 (1초)</value>
+  </data>
+  <data name="View_KeepaliveAudioComboBoxItem_Silent2.Content" xml:space="preserve">
+    <value>무음 (5초)</value>
+  </data>
+  <data name="View_KeepaliveAudioComboBoxItem_Beep1.Content" xml:space="preserve">
+    <value>비프음 1</value>
+  </data>
+  <data name="View_KeepaliveAudioComboBoxItem_Beep2.Content" xml:space="preserve">
+    <value>비프음 2</value>
+  </data>
+  <data name="View_KeepaliveAudioComboBoxItem_Beep3.Content" xml:space="preserve">
+    <value>비프음 3</value>
+  </data>
+  <data name="View_KeepaliveAudioComboBoxItem_Beep4.Content" xml:space="preserve">
+    <value>비프음 4</value>
+  </data>
+  <data name="View_GeneralGroupTextBlock.Text" xml:space="preserve">
+    <value>일반</value>
+  </data>
+  <data name="View_KeepaliveGroupTextBlock.Text" xml:space="preserve">
+    <value>연결 유지</value>
+  </data>
+  <data name="View_AboutGroupTextBlock.Text" xml:space="preserve">
+    <value>정보</value>
+  </data>
+  <data name="View_QuitContentDialog_CloseButtonText" xml:space="preserve">
+    <value>취소</value>
+  </data>
+  <data name="View_QuitContentDialog_Content" xml:space="preserve">
+    <value>연결 유지 신호를 보내는 백그라운드 프로세스를 포함하여 앱을 완전히 종료합니다.</value>
+  </data>
+  <data name="View_QuitContentDialog_PrimaryButtonText" xml:space="preserve">
+    <value>종료</value>
+  </data>
+  <data name="View_QuitContentDialog_Title" xml:space="preserve">
+    <value>앱을 종료할까요?</value>
+  </data>
+  <data name="View_QuitOrCloseContentDialog_CloseButtonText" xml:space="preserve">
+    <value>취소</value>
+  </data>
+  <data name="View_QuitOrCloseContentDialog_Content" xml:space="preserve">
+    <value>- 연결 유지 신호를 보내는 백그라운드 프로세스를 포함하여 앱을 완전히 종료합니다.
+또는
+- 현재 설정 창만 닫습니다.</value>
+  </data>
+  <data name="View_QuitOrCloseContentDialog_PrimaryButtonText" xml:space="preserve">
+    <value>앱 종료</value>
+  </data>
+  <data name="View_QuitOrCloseContentDialog_SecondaryButtonText" xml:space="preserve">
+    <value>이 창만 닫기</value>
+  </data>
+  <data name="View_QuitOrCloseContentDialog_Title" xml:space="preserve">
+    <value>앱을 종료할까요?</value>
+  </data>
+  <data name="View_QuitSettingsCard.Header" xml:space="preserve">
+    <value>앱 종료</value>
+  </data>
+</root>

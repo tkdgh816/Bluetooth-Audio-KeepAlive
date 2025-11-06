@@ -218,8 +218,9 @@
                            FontWeight="{TemplateBinding FontWeight}"
                            FontSize="{TemplateBinding FontSize}"
                            AutomationProperties.AccessibilityView="Raw" />
-                <TextBlock Grid.Column="1"
-                           Text="h"
+                
+                <TextBlock x:Name="FirstPickerHostHourTextBlock"
+                           Grid.Column="1"
                            Style="{StaticResource CaptionTextBlockStyle}"
                            Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
                            VerticalAlignment="Top"
@@ -241,8 +242,8 @@
                            FontSize="{TemplateBinding FontSize}"
                            AutomationProperties.AccessibilityView="Raw" />
 
-                <TextBlock Grid.Column="4"
-                           Text="m"
+                <TextBlock x:Name="SecondPickerHostMinuteTextBlock" 
+                           Grid.Column="4"
                            Style="{StaticResource CaptionTextBlockStyle}"
                            Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
                            VerticalAlignment="Top"
@@ -264,8 +265,8 @@
                            FontSize="{TemplateBinding FontSize}"
                            AutomationProperties.AccessibilityView="Raw" />
 
-                <TextBlock Grid.Column="7"
-                           Text="s"
+                <TextBlock x:Name="ThirdPickerHostSecondTextBlock"
+                           Grid.Column="7"
                            Style="{StaticResource CaptionTextBlockStyle}"
                            Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
                            VerticalAlignment="Top"
@@ -398,7 +399,7 @@
                   <ColumnDefinition Width="Auto" />
                   <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
-                <TextBlock Text="hour"
+                <TextBlock x:Name="FirstHeaderHostTextBlock"
                            Grid.Column="0"
                            TextAlignment="Center"
                            VerticalAlignment="Center"
@@ -407,7 +408,7 @@
                            HorizontalAlignment="Center"
                            Width="{ThemeResource TimePickerSpacerThemeWidth}"
                            Grid.Column="1" />
-                <TextBlock Text="minute"
+                <TextBlock x:Name="SecondHeaderHostTextBlock"
                            Grid.Column="2"
                            TextAlignment="Center"
                            VerticalAlignment="Center"
@@ -416,7 +417,7 @@
                            HorizontalAlignment="Center"
                            Width="{ThemeResource TimePickerSpacerThemeWidth}"
                            Grid.Column="3" />
-                <TextBlock Text="second"
+                <TextBlock x:Name="ThirdHeaderHostTextBlock"
                            Grid.Column="4"
                            TextAlignment="Center"
                            VerticalAlignment="Center"

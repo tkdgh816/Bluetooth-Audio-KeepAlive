@@ -9,7 +9,7 @@ public class Settings : ObservableObject
 {
   public Settings() { }
 
-  public bool IsKeepAlivePlayerActive
+  public bool IsKeepAliveServiceActive
   {
     get;
     set
@@ -79,4 +79,17 @@ public class Settings : ObservableObject
       SettingsProvider.Save(this);
     }
   } = SoundKind.Silent1;
+
+  public string UserAudio
+  {
+    get;
+    set
+    {
+      if (field == value)
+        return;
+
+      SetProperty(ref field, value);
+      SettingsProvider.Save(this);
+    }
+  } = "";
 }

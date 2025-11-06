@@ -2,6 +2,9 @@
 
 using Interop;
 
+using KeepAliveSettings;
+
+using Windows.ApplicationModel.Resources;
 using Microsoft.Windows.AppLifecycle;
 
 namespace KeepAliveApp;
@@ -14,19 +17,53 @@ internal partial class Program
   private static readonly MemoryMappedFile mmf_ServiceProcessId = MemoryMappedFile.CreateOrOpen($"""Local\BluetoothAudioKeepAlive.MMF.ServiceProcessId""", 4);
   private static readonly Mutex mutex_ServiceProcessId = new(false, $"""Local\BluetoothAudioKeepAlive.MUTEX.ServiceProcessId""");
 
+  public static readonly Settings Settings = SettingsProvider.Load();
+  public static ResourceLoader ResourceLoader;
+
   [STAThread]
-  private static int Main(string[] args)
+  private static void Main(string[] args)
   {
     WinRT.ComWrappersSupport.InitializeComWrappers();
 
     ExtendedActivationKind activationKind = AppInstance.GetCurrent().GetActivatedEventArgs().Kind;
 
+    if (Settings.IsKeepAliveServiceActive)
+    {
+      LaunchKeepAliveService();
+    }
+
+    if (!DecideRedirection() && activationKind == ExtendedActivationKind.Launch)
+    {
+      Application.Start((p) =>
+      {
+        var context = new DispatcherQueueSynchronizationContext(DispatcherQueue.GetForCurrentThread());
+        SynchronizationContext.SetSynchronizationContext(context);
+        _ = new App();
+      });
+    }
+
+    Dispose();
+  }
+
+  public static void LaunchKeepAliveService()
+  {
     try
     {
       mutex_ServiceProcessId.WaitOne();
       int serviceProcessId;
       using (var accessor = mmf_ServiceProcessId.CreateViewAccessor())
         serviceProcessId = accessor.ReadInt32(0);
+
+      try
+      {
+        Process currentServiceProcess = Process.GetProcessById(serviceProcessId);
+        if (currentServiceProcess.HasExited)
+          serviceProcessId = 0;
+      }
+      catch
+      {
+        serviceProcessId = 0;
+      }
 
       if (serviceProcessId == 0)
       {
@@ -42,19 +79,11 @@ internal partial class Program
     {
       mutex_ServiceProcessId.ReleaseMutex();
     }
-
-    if (!DecideRedirection() && activationKind == ExtendedActivationKind.Launch)
-    {
-      Application.Start((p) =>
-      {
-        var context = new DispatcherQueueSynchronizationContext(DispatcherQueue.GetForCurrentThread());
-        SynchronizationContext.SetSynchronizationContext(context);
-        _ = new App();
-      });
-    }
-
-    return 0;
   }
+
+  private static readonly EventWaitHandle ewh_QuitServiceProcess = new(false, EventResetMode.AutoReset, $"""Local\BluetoothAudioKeepAlive.EWH.QuitServiceProcess""");
+
+  public static void QuitKeepAliveService() => ewh_QuitServiceProcess.Set();
 
   private static bool DecideRedirection()
   {
@@ -99,6 +128,18 @@ internal partial class Program
     // Bring the window to the foreground
     Process process = Process.GetProcessById((int)keyInstance.ProcessId);
     NativeMethods.SetForegroundWindow(process.MainWindowHandle);
+  }
+
+  private static void Dispose()
+  {
+    // Dispose EventWaitHandle
+    ewh_QuitServiceProcess.Dispose();
+
+    // Dispose MemoryMappedFile
+    mmf_ServiceProcessId.Dispose();
+
+    // Dispose Mutex
+    mutex_ServiceProcessId.Dispose();
   }
 }
 

@@ -2,6 +2,8 @@
 
 using KeepAliveSettings;
 
+using Microsoft.Windows.Globalization;
+
 using Windows.Devices.Bluetooth;
 
 namespace KeepAliveApp;
@@ -74,6 +76,28 @@ public class UserDevice : ObservableObject, IDisposable
     }
     else
       Settings.SelectedDevices.Remove(id);
+  }
+
+  public string ParseDeviceConnectionState(bool connectionState)
+  {
+    string language;
+    (string Connected, string Disconnected) connectionStateString;
+    try
+    {
+      language = ApplicationLanguages.Languages[0].ToLower();
+      connectionStateString = language switch
+      {
+        "en" => ("Connected", "Disconnected"),
+        "ko" => ("연결됨", "연결 안 됨"),
+        _ => ("Connected", "Disconnected")
+      };
+    }
+    catch
+    {
+      connectionStateString = ("Connected", "Disconnected");
+    }
+
+    return connectionState ? connectionStateString.Connected : connectionStateString.Disconnected;
   }
 
   private bool _disposed;

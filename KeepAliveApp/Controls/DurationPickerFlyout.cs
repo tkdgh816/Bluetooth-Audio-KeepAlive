@@ -4,6 +4,7 @@ public class DurationPickerFlyout(DurationPickerEventHelper? DurationPickerEvent
 {
   protected override Control CreatePresenter()
   {
+    this.Closed += (s, e) => Presenter.Close();
     Presenter.Closed += (s, e) => this.Hide();
     return Presenter;
   }
