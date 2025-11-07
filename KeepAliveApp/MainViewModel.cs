@@ -16,7 +16,6 @@ namespace KeepAliveApp;
 public class MainViewModel : ObservableObject, IDisposable
 {
   private readonly DispatcherQueue _dispatcherQueue = DispatcherQueue.GetForCurrentThread();
-  private FileSystemWatcher? _userAudioWatcher;
   private readonly DeviceWatcher _btDeviceWatcher;
 
   public Settings Settings { get; } = Program.Settings;

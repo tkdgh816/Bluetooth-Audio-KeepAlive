@@ -48,17 +48,21 @@
                    Style="{StaticResource BodyStrongTextBlockStyle}"
                    Margin="0,8,0,4" />
         <toolkit:SettingsExpander x:Uid="View_SelectedDevicesSettingsExpander"
-                                  HeaderIcon="Accept"
                                   IsExpanded="{x:Bind ViewModel.Settings.ApplyToSelectedDevices, Mode=OneWay}"
                                   ItemsSource="{x:Bind ViewModel.UserDevices}">
+          <toolkit:SettingsExpander.HeaderIcon>
+            <FontIcon Glyph="&#xE762;" />
+          </toolkit:SettingsExpander.HeaderIcon>
           <ToggleSwitch IsOn="{x:Bind ViewModel.Settings.ApplyToSelectedDevices, Mode=TwoWay}"
                         IsEnabled="{x:Bind ViewModel.NegateBool(ViewModel.Settings.IsKeepAliveServiceActive), Mode=OneWay}" />
 
           <toolkit:SettingsExpander.ItemTemplate>
             <DataTemplate x:DataType="local:UserDevice">
-              <toolkit:SettingsCard HeaderIcon="Audio"
-                                    Header="{x:Bind BluetoothDevice.Name}"
+              <toolkit:SettingsCard Header="{x:Bind BluetoothDevice.Name}"
                                     IsEnabled="{x:Bind IsEnabled, Mode=OneWay}">
+                <toolkit:SettingsCard.HeaderIcon>
+                  <FontIcon Glyph="&#xE702;" />
+                </toolkit:SettingsCard.HeaderIcon>
                 <ToggleSwitch IsOn="{x:Bind IsSelected, Mode=TwoWay}"
                               IsEnabled="{x:Bind IsEditable, Mode=OneWay}" />
                 <toolkit:SettingsCard.Description>
@@ -82,7 +86,7 @@
         </toolkit:SettingsCard>
 
         <toolkit:SettingsCard x:Uid="View_KeepaliveAudioSettingsCard"
-                              HeaderIcon="Volume">
+                              HeaderIcon="Audio">
           <StackPanel Orientation="Horizontal"
                       Spacing="8">
             <ComboBox x:Name="View_KeepaliveAudioComboBox"
@@ -165,8 +169,10 @@
                    Margin="0,8,0,4" />
         <StackPanel>
           <toolkit:SettingsCard x:Name="View_StartupTaskSettingsCard"
-                                x:Uid="View_StartupTaskSettingsCard"
-                                HeaderIcon="Play">
+                                x:Uid="View_StartupTaskSettingsCard">
+            <toolkit:SettingsCard.HeaderIcon>
+              <FontIcon Glyph="&#xE7B5;" />
+            </toolkit:SettingsCard.HeaderIcon>
             <ToggleSwitch x:Name="View_StartupTaskToggleSwitch"
                           Toggled="View_StartupTaskToggleSwitch_Toggled" />
           </toolkit:SettingsCard>
@@ -194,8 +200,12 @@
 
         <toolkit:SettingsCard x:Uid="View_QuitSettingsCard"
                               HeaderIcon="Clear">
-          <Button x:Name="View_QuitButton"
-                  Content="Quit"
+          <toolkit:SettingsCard.Header>
+            <TextBlock x:Uid="View_QuitTextBlock" 
+                       Margin="0,0,0,4"/>
+          </toolkit:SettingsCard.Header>
+          <Button x:Uid="View_QuitButton"
+                  x:Name="View_QuitButton"
                   Click="View_QuitButton_Click" />
         </toolkit:SettingsCard>
 

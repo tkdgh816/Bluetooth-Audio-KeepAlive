@@ -4,7 +4,6 @@ using Interop;
 
 using KeepAliveSettings;
 
-using Windows.ApplicationModel.Resources;
 using Microsoft.Windows.AppLifecycle;
 
 namespace KeepAliveApp;
@@ -18,7 +17,6 @@ internal partial class Program
   private static readonly Mutex mutex_ServiceProcessId = new(false, $"""Local\BluetoothAudioKeepAlive.MUTEX.ServiceProcessId""");
 
   public static readonly Settings Settings = SettingsProvider.Load();
-  public static ResourceLoader ResourceLoader;
 
   [STAThread]
   private static void Main(string[] args)

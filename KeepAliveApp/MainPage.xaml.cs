@@ -1,9 +1,7 @@
 using KeepAliveSettings;
 
-using Windows.ApplicationModel.Resources;
-
 using Windows.ApplicationModel;
-
+using Windows.ApplicationModel.Resources;
 namespace KeepAliveApp;
 
 public sealed partial class MainPage : Page

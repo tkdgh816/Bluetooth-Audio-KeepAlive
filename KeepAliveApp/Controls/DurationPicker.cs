@@ -1,5 +1,3 @@
-using System.Globalization;
-
 using Microsoft.Windows.Globalization;
 
 namespace KeepAliveApp.Controls;

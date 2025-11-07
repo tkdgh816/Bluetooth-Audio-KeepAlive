@@ -1,4 +1,5 @@
 ﻿using System.Text.Json;
+using System.Text.Json.Serialization;
 
 using Windows.ApplicationModel;
 
@@ -14,13 +15,13 @@ public static class SettingsProvider
     AppDomain.CurrentDomain.ProcessExit += (s, e) => mutex.Dispose();
   }
 
-  private static readonly JsonSerializerOptions jsonSerializerOptions = new() { WriteIndented = true };
+  private static readonly SettingsJsonContext jsonContext = new(new JsonSerializerOptions(){ WriteIndented = true });
   public static bool Save(Settings settings)
   {
     try
     {
       mutex.WaitOne();
-      string jsonString = JsonSerializer.Serialize(settings, jsonSerializerOptions);
+      string jsonString = JsonSerializer.Serialize(settings, jsonContext.Settings);
       File.WriteAllText(settingsFilePath, jsonString);
       return true;
     }
@@ -43,7 +44,7 @@ public static class SettingsProvider
       if (File.Exists(settingsFilePath))
       {
         string jsonString = File.ReadAllText(settingsFilePath);
-        settings = JsonSerializer.Deserialize<Settings>(jsonString);
+        settings = JsonSerializer.Deserialize(jsonString, jsonContext.Settings);
       }
     }
     finally
@@ -77,3 +78,6 @@ public static class SettingsProvider
     }
   }
 }
+
+[JsonSerializable(typeof(Settings))]
+internal partial class SettingsJsonContext : JsonSerializerContext { }

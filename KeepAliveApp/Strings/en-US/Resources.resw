@@ -224,7 +224,10 @@ OR
   <data name="View_QuitOrCloseContentDialog_Title" xml:space="preserve">
     <value>Quit app?</value>
   </data>
-  <data name="View_QuitSettingsCard.Header" xml:space="preserve">
+  <data name="View_QuitButton.Content" xml:space="preserve">
+    <value>Quit</value>
+  </data>
+  <data name="View_QuitTextBlock.Text" xml:space="preserve">
     <value>Quit app</value>
   </data>
 </root>

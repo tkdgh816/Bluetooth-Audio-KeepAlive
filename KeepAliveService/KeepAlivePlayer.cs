@@ -3,7 +3,6 @@
 using KeepAliveSettings;
 
 using Windows.Devices.Bluetooth;
-using Windows.Devices.Enumeration;
 using Windows.Media.Core;
 using Windows.Media.Playback;
 
@@ -103,7 +102,7 @@ public class KeepAlivePlayer : ObservableObject, IDisposable
 
   public void Stop() => _timer?.Change(Timeout.Infinite, Timeout.Infinite);
 
-  private TimeSpan GetAuidoDuration(SoundKind kind) => kind switch
+  private static TimeSpan GetAuidoDuration(SoundKind kind) => kind switch
   {
     SoundKind.Silent1 => TimeSpan.FromSeconds(1),
     SoundKind.Silent2 => TimeSpan.FromSeconds(5),
