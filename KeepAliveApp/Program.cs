@@ -1,4 +1,5 @@
 ﻿using System.IO.MemoryMappedFiles;
+using System.Text;
 
 using Interop;
 
@@ -6,22 +7,44 @@ using KeepAliveSettings;
 
 using Microsoft.Windows.AppLifecycle;
 
+using Windows.Storage;
+
 namespace KeepAliveApp;
 
 internal partial class Program
 {
   private const string AppName = "BluetoothAudioKeepAlive";
   private static readonly string _appxInstalledPath = Windows.ApplicationModel.Package.Current.InstalledLocation.Path;
+  private static readonly string _localFolderPath = ApplicationData.Current.LocalFolder.Path;
+
+  private static readonly MemoryMappedFile mmf_LocalFolderPath = MemoryMappedFile.CreateOrOpen($"""Local\BluetoothAudioKeepAlive.MMF.LocalFolderPath""", 1048);
+  private static readonly Mutex mutex_LocalFolderPath = new(false, $"""Local\BluetoothAudioKeepAlive.MUTEX.LocalFolderPath""");
 
   private static readonly MemoryMappedFile mmf_ServiceProcessId = MemoryMappedFile.CreateOrOpen($"""Local\BluetoothAudioKeepAlive.MMF.ServiceProcessId""", 4);
   private static readonly Mutex mutex_ServiceProcessId = new(false, $"""Local\BluetoothAudioKeepAlive.MUTEX.ServiceProcessId""");
 
-  public static readonly Settings Settings = SettingsProvider.Load();
+  public static Settings Settings = null!;
 
   [STAThread]
   private static void Main(string[] args)
   {
     WinRT.ComWrappersSupport.InitializeComWrappers();
+
+    try
+    {
+      mutex_LocalFolderPath.WaitOne();
+      using (var accessor = mmf_LocalFolderPath.CreateViewAccessor())
+      {
+        accessor.Write(0, _localFolderPath.Length);
+        accessor.WriteArray(4, Encoding.UTF8.GetBytes(_localFolderPath), 0, _localFolderPath.Length); 
+      }
+    }
+    finally
+    {
+      mutex_LocalFolderPath.ReleaseMutex();
+    }
+
+    Settings = SettingsProvider.Load();
 
     ExtendedActivationKind activationKind = AppInstance.GetCurrent().GetActivatedEventArgs().Kind;
 
@@ -134,9 +157,11 @@ internal partial class Program
     ewh_QuitServiceProcess.Dispose();
 
     // Dispose MemoryMappedFile
+    mmf_LocalFolderPath.Dispose();
     mmf_ServiceProcessId.Dispose();
 
     // Dispose Mutex
+    mutex_LocalFolderPath.Dispose();
     mutex_ServiceProcessId.Dispose();
   }
 }
