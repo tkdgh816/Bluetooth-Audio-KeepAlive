@@ -1,4 +1,8 @@
-﻿namespace KeepAliveApp.Controls;
+﻿using System;
+
+using Windows.Foundation;
+
+namespace CustomControls;
 
 public class DurationPickerEventHelper : IDisposable
 {

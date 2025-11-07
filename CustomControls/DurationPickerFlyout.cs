@@ -1,4 +1,8 @@
-namespace KeepAliveApp.Controls;
+using System;
+
+using Microsoft.UI.Xaml.Controls;
+
+namespace CustomControls;
 
 public class DurationPickerFlyout(DurationPickerEventHelper? DurationPickerEventHelper, TimeSpan DefaultDuration = default) : Flyout
 {

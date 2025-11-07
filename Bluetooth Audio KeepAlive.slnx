@@ -2,22 +2,50 @@
   <Configurations>
     <Platform Name="Any CPU" />
     <Platform Name="ARM" />
+    <Platform Name="ARM32" />
     <Platform Name="ARM64" />
     <Platform Name="x64" />
     <Platform Name="x86" />
   </Configurations>
-  <Project Path="Interop/Interop.csproj" />
+  <Project Path="CustomControls/CustomControls.csproj" Id="d09aef72-32ca-4b95-9a96-2c85855dcc5e">
+    <Platform Solution="*|x64" Project="x64" />
+    <Platform Solution="*|x86" Project="x86" />
+    <Platform Solution="Release|ARM" Project="ARM64" />
+    <Platform Solution="Release|ARM64" Project="ARM64" />
+  </Project>
+  <Project Path="Interop/Interop.csproj">
+    <Platform Solution="*|x64" Project="x64" />
+    <Platform Solution="*|x86" Project="x86" />
+    <Platform Solution="Release|ARM" Project="ARM64" />
+    <Platform Solution="Release|ARM64" Project="ARM64" />
+  </Project>
   <Project Path="KeepAliveApp/KeepAliveApp.csproj">
-    <Platform Solution="*|Any CPU" Project="x64" />
-    <Platform Solution="*|ARM" Project="x64" />
     <Platform Solution="*|ARM64" Project="ARM64" />
     <Platform Solution="*|x64" Project="x64" />
     <Platform Solution="*|x86" Project="x86" />
-    <Deploy />
+    <Platform Solution="Debug|ARM" Project="x64" />
+    <Platform Solution="Release|ARM" Project="ARM64" />
+    <Deploy Solution="*|Any CPU" />
+    <Deploy Solution="*|ARM" />
+    <Deploy Solution="*|ARM64" />
+    <Deploy Solution="*|x64" />
+    <Deploy Solution="*|x86" />
   </Project>
-  <Project Path="KeepAliveService/KeepAliveService.csproj" Id="6ff569ff-0936-49d4-a5d3-13fd1d9a9530" />
-  <Project Path="KeepAliveSettings/KeepAliveSettings.csproj" Id="0a3f4f25-8a70-4438-8b72-ac868f5a1c9c" />
+  <Project Path="KeepAliveService/KeepAliveService.csproj" Id="6ff569ff-0936-49d4-a5d3-13fd1d9a9530">
+    <Platform Solution="*|x64" Project="x64" />
+    <Platform Solution="*|x86" Project="x86" />
+    <Platform Solution="Release|ARM" Project="ARM64" />
+    <Platform Solution="Release|ARM64" Project="ARM64" />
+  </Project>
+  <Project Path="KeepAliveSettings/KeepAliveSettings.csproj" Id="0a3f4f25-8a70-4438-8b72-ac868f5a1c9c">
+    <Platform Solution="*|ARM32" Project="ARM32" />
+    <Platform Solution="*|x64" Project="x64" />
+    <Platform Solution="*|x86" Project="x86" />
+    <Platform Solution="Release|ARM" Project="ARM64" />
+    <Platform Solution="Release|ARM64" Project="ARM64" />
+  </Project>
   <Project Path="Packaging/Packaging.wapproj" Type="c7167f0d-bc9f-4e6e-afe1-012c56b48db5" Id="e981fcaf-d57a-4061-8cf7-45d4da16fedd">
+    <Platform Solution="*|ARM32" Project="AnyCPU" />
     <Deploy />
   </Project>
 </Solution>

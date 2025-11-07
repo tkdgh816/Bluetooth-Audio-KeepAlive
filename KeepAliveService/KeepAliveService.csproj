@@ -8,6 +8,9 @@
     <SupportedOSPlatformVersion>10.0.17763.0</SupportedOSPlatformVersion>
     <ApplicationIcon>BluetoothAudioKeepAlive_128.ico</ApplicationIcon>
     <AssemblyName>Bluetooth Audio KeepAlive</AssemblyName>
+    <RootNamespace>KeepAliveService</RootNamespace>
+    <Platforms>x86;x64;ARM64;AnyCPU</Platforms>
+    <RuntimeIdentifiers>win-x86;win-x64;win-arm64</RuntimeIdentifiers>
   </PropertyGroup>
 
   <ItemGroup>

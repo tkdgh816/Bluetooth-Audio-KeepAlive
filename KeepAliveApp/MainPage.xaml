@@ -5,7 +5,7 @@
       xmlns:local="using:KeepAliveApp"
       xmlns:settings="using:KeepAliveSettings"
       xmlns:converters="using:KeepAliveApp.Converters"
-      xmlns:controls="using:KeepAliveApp.Controls"
+      xmlns:customcontrols="using:CustomControls"
       xmlns:toolkit="using:CommunityToolkit.WinUI.Controls">
 
   <Page.Resources>
@@ -81,8 +81,8 @@
 
         <toolkit:SettingsCard x:Uid="View_KeepaliveIntervalSettingsCard"
                               HeaderIcon="Sync">
-          <controls:DurationPicker Duration="{x:Bind ViewModel.Settings.KeepAliveInterval, Mode=TwoWay}"
-                                   IsEnabled="{x:Bind ViewModel.NegateBool(ViewModel.Settings.IsKeepAliveServiceActive), Mode=OneWay}" />
+          <customcontrols:DurationPicker Duration="{x:Bind ViewModel.Settings.KeepAliveInterval, Mode=TwoWay}"
+                                         IsEnabled="{x:Bind ViewModel.NegateBool(ViewModel.Settings.IsKeepAliveServiceActive), Mode=OneWay}" />
         </toolkit:SettingsCard>
 
         <toolkit:SettingsCard x:Uid="View_KeepaliveAudioSettingsCard"
@@ -201,8 +201,8 @@
         <toolkit:SettingsCard x:Uid="View_QuitSettingsCard"
                               HeaderIcon="Clear">
           <toolkit:SettingsCard.Header>
-            <TextBlock x:Uid="View_QuitTextBlock" 
-                       Margin="0,0,0,4"/>
+            <TextBlock x:Uid="View_QuitTextBlock"
+                       Margin="0,0,0,4" />
           </toolkit:SettingsCard.Header>
           <Button x:Uid="View_QuitButton"
                   x:Name="View_QuitButton"

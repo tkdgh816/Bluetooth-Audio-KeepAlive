@@ -1,11 +1,10 @@
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                    xmlns:local="using:KeepAliveApp"
-                    xmlns:controls="using:KeepAliveApp.Controls"
+                    xmlns:local="using:CustomControls"
                     xmlns:animated="using:Microsoft.UI.Xaml.Controls.AnimatedVisuals"
                     xmlns:primitives="using:Microsoft.UI.Xaml.Controls.Primitives">
 
-  <Style TargetType="controls:DurationPicker">
+  <Style TargetType="local:DurationPicker">
     <Setter Property="IsTabStop"
             Value="False" />
     <Setter Property="FocusVisualMargin"
@@ -35,7 +34,7 @@
 
     <Setter Property="Template">
       <Setter.Value>
-        <ControlTemplate TargetType="controls:DurationPicker">
+        <ControlTemplate TargetType="local:DurationPicker">
           <Grid x:Name="LayoutRoot"
                 Margin="{TemplateBinding Padding}">
 
@@ -218,7 +217,7 @@
                            FontWeight="{TemplateBinding FontWeight}"
                            FontSize="{TemplateBinding FontSize}"
                            AutomationProperties.AccessibilityView="Raw" />
-                
+
                 <TextBlock x:Name="FirstPickerHostHourTextBlock"
                            Grid.Column="1"
                            Style="{StaticResource CaptionTextBlockStyle}"
@@ -242,7 +241,7 @@
                            FontSize="{TemplateBinding FontSize}"
                            AutomationProperties.AccessibilityView="Raw" />
 
-                <TextBlock x:Name="SecondPickerHostMinuteTextBlock" 
+                <TextBlock x:Name="SecondPickerHostMinuteTextBlock"
                            Grid.Column="4"
                            Style="{StaticResource CaptionTextBlockStyle}"
                            Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
@@ -281,7 +280,7 @@
     </Setter>
   </Style>
 
-  <Style TargetType="controls:DurationPickerFlyoutPresenter">
+  <Style TargetType="local:DurationPickerFlyoutPresenter">
     <Setter Property="Width"
             Value="242" />
     <Setter Property="MinWidth"
@@ -307,7 +306,7 @@
 
     <Setter Property="Template">
       <Setter.Value>
-        <ControlTemplate TargetType="controls:DurationPickerFlyoutPresenter">
+        <ControlTemplate TargetType="local:DurationPickerFlyoutPresenter">
           <Border x:Name="RootBorder"
                   Background="{TemplateBinding Background}"
                   BorderBrush="{TemplateBinding BorderBrush}"
@@ -783,4 +782,5 @@
     </Setter>
   </Style>
 </ResourceDictionary>
+
 

@@ -1,6 +1,13 @@
+using System;
+
+using Microsoft.UI.Xaml;
+using Microsoft.UI.Xaml.Controls;
+using Microsoft.UI.Xaml.Controls.Primitives;
 using Microsoft.Windows.Globalization;
 
-namespace KeepAliveApp.Controls;
+using Windows.Foundation;
+
+namespace CustomControls;
 
 public sealed partial class DurationPicker : Control
 {
