@@ -6,9 +6,6 @@
     <Platform Name="x64" />
     <Platform Name="x86" />
   </Configurations>
-  <Project Path="Bluetooth Audio KeepAlive/Bluetooth Audio KeepAlive.wapproj" Type="c7167f0d-bc9f-4e6e-afe1-012c56b48db5">
-    <Deploy />
-  </Project>
   <Project Path="Interop/Interop.csproj" />
   <Project Path="KeepAliveApp/KeepAliveApp.csproj">
     <Platform Solution="*|Any CPU" Project="x64" />
@@ -20,4 +17,7 @@
   </Project>
   <Project Path="KeepAliveService/KeepAliveService.csproj" Id="6ff569ff-0936-49d4-a5d3-13fd1d9a9530" />
   <Project Path="KeepAliveSettings/KeepAliveSettings.csproj" Id="0a3f4f25-8a70-4438-8b72-ac868f5a1c9c" />
+  <Project Path="Packaging/Packaging.wapproj" Type="c7167f0d-bc9f-4e6e-afe1-012c56b48db5" Id="e981fcaf-d57a-4061-8cf7-45d4da16fedd">
+    <Deploy />
+  </Project>
 </Solution>
