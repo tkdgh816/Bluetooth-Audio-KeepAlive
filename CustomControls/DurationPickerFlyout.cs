@@ -4,7 +4,7 @@ using Microsoft.UI.Xaml.Controls;
 
 namespace CustomControls;
 
-public class DurationPickerFlyout(DurationPickerEventHelper? DurationPickerEventHelper, TimeSpan DefaultDuration = default) : Flyout
+public sealed partial class DurationPickerFlyout(DurationPickerEventHelper? DurationPickerEventHelper, TimeSpan DefaultDuration = default) : Flyout
 {
   protected override Control CreatePresenter()
   {

@@ -8,7 +8,7 @@ using Windows.Devices.Bluetooth;
 
 namespace KeepAliveApp;
 
-public class UserDevice : ObservableObject, IDisposable
+public partial class UserDevice : ObservableObject, IDisposable
 {
   public BluetoothDevice BluetoothDevice { get; private set; } = null!;
   public required DispatcherQueue DispatcherQueue { get; init; }

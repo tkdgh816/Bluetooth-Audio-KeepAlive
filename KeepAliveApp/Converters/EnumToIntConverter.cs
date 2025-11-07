@@ -2,7 +2,7 @@
 
 namespace KeepAliveApp.Converters;
 
-public class EnumToIntConverter : DependencyObject, IValueConverter
+public partial class EnumToIntConverter : DependencyObject, IValueConverter
 {
   public static readonly DependencyProperty EnumTypeProperty = DependencyProperty.Register("EnumType", typeof(Type), typeof(EnumToIntConverter), new PropertyMetadata(null));
   public Type EnumType

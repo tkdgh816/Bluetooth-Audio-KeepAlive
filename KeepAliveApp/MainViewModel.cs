@@ -13,7 +13,7 @@ using Windows.Media.Playback;
 
 namespace KeepAliveApp;
 
-public class MainViewModel : ObservableObject, IDisposable
+public partial class MainViewModel : ObservableObject, IDisposable
 {
   private readonly DispatcherQueue _dispatcherQueue = DispatcherQueue.GetForCurrentThread();
   private readonly DeviceWatcher _btDeviceWatcher;

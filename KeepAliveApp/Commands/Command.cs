@@ -2,7 +2,7 @@
 
 namespace KeepAliveApp.Commands;
 
-public class Command : ICommand
+public partial class Command : ICommand
 {
   public Action? ActionToExecute { get; init; }
   public Func<bool>? CanExecuteFunc { get; init; }
@@ -51,7 +51,7 @@ public class Command : ICommand
   }
 }
 
-public class Command<T> : ICommand
+public partial class Command<T> : ICommand
 {
   public Action<T>? ActionToExecute { get; init; }
   public Func<T?, bool>? CanExecuteFunc { get; init; }

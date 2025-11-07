@@ -4,7 +4,7 @@ using Windows.Foundation;
 
 namespace CustomControls;
 
-public class DurationPickerEventHelper : IDisposable
+public partial class DurationPickerEventHelper : IDisposable
 {
   private bool _disposed;
 
