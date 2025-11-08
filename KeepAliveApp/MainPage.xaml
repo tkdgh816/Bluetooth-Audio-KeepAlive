@@ -36,11 +36,11 @@
                               HeaderIcon="More">
           <toolkit:SettingsCard.Description>
             <TextBlock x:Uid="View_RunningStateDescriptionTextBlock"
-                       Visibility="{x:Bind ViewModel.Settings.IsKeepAliveServiceActive, Mode=OneWay}" />
+                       Visibility="{x:Bind ViewModel.Settings.IsKeepAliveServiceRunning, Mode=OneWay}" />
           </toolkit:SettingsCard.Description>
 
           <ToggleSwitch x:Uid="View_RunningStateToggleSwitch"
-                        IsOn="{x:Bind ViewModel.Settings.IsKeepAliveServiceActive, Mode=TwoWay}"
+                        IsOn="{x:Bind ViewModel.Settings.IsKeepAliveServiceRunning, Mode=TwoWay}"
                         IsEnabled="{x:Bind ViewModel.CanChangeRunningState, Mode=OneWay}" />
         </toolkit:SettingsCard>
 
@@ -54,7 +54,7 @@
             <FontIcon Glyph="&#xE762;" />
           </toolkit:SettingsExpander.HeaderIcon>
           <ToggleSwitch IsOn="{x:Bind ViewModel.Settings.ApplyToSelectedDevices, Mode=TwoWay}"
-                        IsEnabled="{x:Bind ViewModel.NegateBool(ViewModel.Settings.IsKeepAliveServiceActive), Mode=OneWay}" />
+                        IsEnabled="{x:Bind ViewModel.NegateBool(ViewModel.Settings.IsKeepAliveServiceRunning), Mode=OneWay}" />
 
           <toolkit:SettingsExpander.ItemTemplate>
             <DataTemplate x:DataType="local:UserDevice">
@@ -82,7 +82,7 @@
         <toolkit:SettingsCard x:Uid="View_KeepaliveIntervalSettingsCard"
                               HeaderIcon="Sync">
           <customcontrols:DurationPicker Duration="{x:Bind ViewModel.Settings.KeepAliveInterval, Mode=TwoWay}"
-                                         IsEnabled="{x:Bind ViewModel.NegateBool(ViewModel.Settings.IsKeepAliveServiceActive), Mode=OneWay}" />
+                                         IsEnabled="{x:Bind ViewModel.NegateBool(ViewModel.Settings.IsKeepAliveServiceRunning), Mode=OneWay}" />
         </toolkit:SettingsCard>
 
         <toolkit:SettingsCard x:Uid="View_KeepaliveAudioSettingsCard"
@@ -91,7 +91,7 @@
                       Spacing="8">
             <ComboBox x:Name="View_KeepaliveAudioComboBox"
                       SelectedIndex="{x:Bind ViewModel.Settings.SoundKind, Converter={StaticResource SoundKindToIntConverter}, Mode=TwoWay}"
-                      IsEnabled="{x:Bind ViewModel.NegateBool(ViewModel.Settings.IsKeepAliveServiceActive), Mode=OneWay}">
+                      IsEnabled="{x:Bind ViewModel.NegateBool(ViewModel.Settings.IsKeepAliveServiceRunning), Mode=OneWay}">
               <ComboBoxItem x:Uid="View_KeepaliveAudioComboBoxItem_Silent1"
                             Tag="Silent1" />
               <ComboBoxItem x:Uid="View_KeepaliveAudioComboBoxItem_Silent2"
@@ -127,7 +127,7 @@
                       Spacing="8">
             <ComboBox x:Name="View_KeepaliveAudioComboBox"
                       SelectedIndex="{x:Bind ViewModel.Settings.SoundKind, Converter={StaticResource SoundKindToIntConverter}, Mode=TwoWay}"
-                      IsEnabled="{x:Bind ViewModel.NegateBool(ViewModel.Settings.IsKeepAliveServiceActive), Mode=OneWay}">
+                      IsEnabled="{x:Bind ViewModel.NegateBool(ViewModel.Settings.IsKeepAliveServiceRunning), Mode=OneWay}">
               <ComboBoxItem Content="Silent (1-second)" />
               <ComboBoxItem Content="Silent (5-second)" />
               <ComboBoxItem Content="Beep 1" />

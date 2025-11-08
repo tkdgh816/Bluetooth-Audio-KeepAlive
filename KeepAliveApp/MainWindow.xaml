@@ -5,7 +5,7 @@
         xmlns:local="using:KeepAliveApp">
 
   <Window.SystemBackdrop>
-    <MicaBackdrop />
+    <MicaBackdrop Kind="BaseAlt" />
   </Window.SystemBackdrop>
 
   <Grid x:Name="View_RootGrid">
@@ -28,8 +28,9 @@
         <ColumnDefinition Width="12" />
         <ColumnDefinition Width="Auto" />
         <ColumnDefinition Width="12" />
+        <ColumnDefinition Width="*" />
         <ColumnDefinition Width="Auto" />
-        <ColumnDefinition Width="12" />
+        <ColumnDefinition Width="140" />
       </Grid.ColumnDefinitions>
       <ImageIcon Grid.Column="1" 
                  Source="/Assets/BluetoothAudioKeepAlive_128.ico"
@@ -41,6 +42,12 @@
                  VerticalAlignment="Center"
                  FontSize="13" 
                  Padding="0,0,0,2"/>
+      <Button x:Name="View_CaptureButton"
+              Grid.Column="4"
+              Width="12"
+              Click="View_CaptureButton_Click" 
+              Background="Transparent"
+              BorderThickness="0"/>
     </Grid>
 
     <local:MainPage Grid.Row="1" />

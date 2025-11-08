@@ -48,7 +48,7 @@ internal partial class Program
 
     ExtendedActivationKind activationKind = AppInstance.GetCurrent().GetActivatedEventArgs().Kind;
 
-    if (Settings.IsKeepAliveServiceActive)
+    if (Settings.IsKeepAliveServiceRunning)
     {
       LaunchKeepAliveService();
     }

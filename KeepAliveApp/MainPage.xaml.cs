@@ -76,7 +76,7 @@ public sealed partial class MainPage : Page
 
   private async void View_QuitButton_Click(object sender, RoutedEventArgs e)
   {
-    ContentDialog dialog = ViewModel.Settings.IsKeepAliveServiceActive
+    ContentDialog dialog = ViewModel.Settings.IsKeepAliveServiceRunning
       ? new()
       {
         XamlRoot = this.XamlRoot,

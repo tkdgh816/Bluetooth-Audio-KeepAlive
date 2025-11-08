@@ -9,7 +9,7 @@ public class Settings : ObservableObject
 {
   public Settings() { }
 
-  public bool IsKeepAliveServiceActive
+  public bool IsKeepAliveServiceRunning
   {
     get;
     set

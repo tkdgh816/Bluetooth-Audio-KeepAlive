@@ -1,4 +1,10 @@
+using System.Runtime.InteropServices.WindowsRuntime;
+
 using Microsoft.UI.Windowing;
+using Microsoft.UI.Xaml.Media.Imaging;
+
+using Windows.Graphics.Imaging;
+using Windows.Storage;
 
 namespace KeepAliveApp;
 
@@ -17,5 +23,11 @@ public sealed partial class MainWindow : Window
     presenter?.PreferredMinimumHeight = 300;
 
     AppWindow.ResizeClient(new(600, 800));
+  }
+
+  private async void View_CaptureButton_Click(object sender, RoutedEventArgs e)
+  {
+    await Task.Delay(1000);
+    await Debugging.Capture.CaptureHighResWindowAsync(this.Content, "capture.png");
   }
 }

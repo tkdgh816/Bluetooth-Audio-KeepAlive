@@ -48,8 +48,8 @@ public partial class MainViewModel : ObservableObject, IDisposable
   {
     switch (e.PropertyName)
     {
-      case nameof(Settings.IsKeepAliveServiceActive):
-        if (Settings.IsKeepAliveServiceActive)
+      case nameof(Settings.IsKeepAliveServiceRunning):
+        if (Settings.IsKeepAliveServiceRunning)
           Program.LaunchKeepAliveService();
         else
           Program.QuitKeepAliveService();
@@ -63,7 +63,7 @@ public partial class MainViewModel : ObservableObject, IDisposable
     {
       Settings = Settings,
       DispatcherQueue = _dispatcherQueue,
-      IsEditable = !Settings.IsKeepAliveServiceActive,
+      IsEditable = !Settings.IsKeepAliveServiceRunning,
       IsEnabled = Settings.ApplyToSelectedDevices,
       IsSelected = Settings.SelectedDevices.Any(id => id == deviceInformation.Id)
     };
@@ -75,8 +75,8 @@ public partial class MainViewModel : ObservableObject, IDisposable
         case nameof(Settings.ApplyToSelectedDevices):
           userDevice.IsEnabled = Settings.ApplyToSelectedDevices;
           break;
-        case nameof(Settings.IsKeepAliveServiceActive):
-          userDevice.IsEditable = !Settings.IsKeepAliveServiceActive;
+        case nameof(Settings.IsKeepAliveServiceRunning):
+          userDevice.IsEditable = !Settings.IsKeepAliveServiceRunning;
           break;
       }
     };
