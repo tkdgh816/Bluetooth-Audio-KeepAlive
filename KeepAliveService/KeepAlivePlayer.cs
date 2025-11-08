@@ -23,7 +23,7 @@ public class KeepAlivePlayer : ObservableObject, IDisposable
     _mediaDuration = GetAuidoDuration(Settings.SoundKind);
     if (Settings.ApplyToSelectedDevices)
       SelectDevices();
-    else 
+    else
       Start();
   }
 
@@ -70,9 +70,11 @@ public class KeepAlivePlayer : ObservableObject, IDisposable
     CheckAnySelectedDeviceConnected();
   }
 
-  private void BtDevice_ConnectionStatusChanged(BluetoothDevice sender, object args)
+  private async void BtDevice_ConnectionStatusChanged(BluetoothDevice sender, object args)
   {
-    SelectedDevices?[sender] = sender.ConnectionStatus == BluetoothConnectionStatus.Connected;
+    bool connected = sender.ConnectionStatus == BluetoothConnectionStatus.Connected;
+    SelectedDevices?[sender] = connected;
+    await Task.Delay(2000);
     CheckAnySelectedDeviceConnected();
   }
 

@@ -124,7 +124,7 @@
     <value>설정</value>
   </data>
   <data name="View_RunningStateDescriptionTextBlock.Text" xml:space="preserve">
-    <value>연결 유지 설정을 변경하려면, 스위치를 [중지됨]으로 전환하여 서비스를 중지하세요.</value>
+    <value>연결 유지 설정을 변경하려면, 스위치를 [중지됨]으로 전환하여 연결 유지 동작을 중지하세요.</value>
   </data>
   <data name="View_RunningStateToggleSwitch.OffContent" xml:space="preserve">
     <value>중지됨</value>
@@ -136,7 +136,7 @@
     <value>시스템 시작 시 실행</value>
   </data>
   <data name="View_StartupTaskSettingsCard.Description" xml:space="preserve">
-    <value>시스템 시작 시 백그라운드 서비스를 자동으로 실행합니다.</value>
+    <value>시스템 시작 시 백그라운드 연결 유지 동작을 자동으로 실행합니다.</value>
   </data>
   <data name="View_StartupTaskInfoBar.Title" xml:space="preserve">
     <value>사용자가 시작 앱 등록을 비활성화했습니다.</value>
@@ -151,7 +151,8 @@
     <value>선택한 블루투스 기기만 연결 유지 신호 보내기</value>
   </data>
   <data name="View_SelectedDevicesSettingsExpander.Description" xml:space="preserve">
-    <value>옵션을 끄면 서비스가 실행 중일 때 항상 연결 유지 신호를 보냅니다.</value>
+    <value>선택한 블루투스 기기가 연결되었을 때에만 연결 유지 신호를 보냅니다.
+옵션을 끄면 연결 유지 동작이 실행 중일 때 항상 연결 유지 신호를 보냅니다.</value>
   </data>
   <data name="View_BackgroundOperationGroupTextBlock.Text" xml:space="preserve">
     <value>백그라운드 동작</value>

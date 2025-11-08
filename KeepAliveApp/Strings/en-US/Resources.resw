@@ -151,7 +151,8 @@
     <value>Send keepalive signals only to selected Bluetooth devices</value>
   </data>
   <data name="View_SelectedDevicesSettingsExpander.Description" xml:space="preserve">
-    <value>Turning off this option keeps the keepalive operation always sending signals while it is running.</value>
+    <value>Sends keepalive signals only while the selected Bluetooth device is connected.
+Turn off to always send signals while the keepalive operation is running.</value>
   </data>
   <data name="View_BackgroundOperationGroupTextBlock.Text" xml:space="preserve">
     <value>Background operation</value>

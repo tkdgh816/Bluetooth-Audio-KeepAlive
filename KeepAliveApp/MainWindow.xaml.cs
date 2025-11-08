@@ -1,10 +1,4 @@
-using System.Runtime.InteropServices.WindowsRuntime;
-
 using Microsoft.UI.Windowing;
-using Microsoft.UI.Xaml.Media.Imaging;
-
-using Windows.Graphics.Imaging;
-using Windows.Storage;
 
 namespace KeepAliveApp;
 
@@ -27,7 +21,7 @@ public sealed partial class MainWindow : Window
 
   private async void View_CaptureButton_Click(object sender, RoutedEventArgs e)
   {
-    await Task.Delay(1000);
-    await Debugging.Capture.CaptureHighResWindowAsync(this.Content, "capture.png");
+    await Task.Delay(2000);
+    await Debugging.Capture.CaptureHighResWindowAsync(this, View_RootGrid, "capture.png", 3.0);
   }
 }

@@ -36,7 +36,7 @@ internal partial class Program
       using (var accessor = mmf_LocalFolderPath.CreateViewAccessor())
       {
         accessor.Write(0, _localFolderPath.Length);
-        accessor.WriteArray(4, Encoding.UTF8.GetBytes(_localFolderPath), 0, _localFolderPath.Length); 
+        accessor.WriteArray(4, Encoding.UTF8.GetBytes(_localFolderPath), 0, _localFolderPath.Length);
       }
     }
     finally
@@ -48,11 +48,11 @@ internal partial class Program
 
     ExtendedActivationKind activationKind = AppInstance.GetCurrent().GetActivatedEventArgs().Kind;
 
-    if (Settings.IsKeepAliveServiceRunning)
+    if (Settings.IsKeepAliveServiceRunning || activationKind == ExtendedActivationKind.StartupTask)
     {
       LaunchKeepAliveService();
     }
-
+    
     if (!DecideRedirection() && activationKind == ExtendedActivationKind.Launch)
     {
       Application.Start((p) =>
@@ -95,6 +95,8 @@ internal partial class Program
         };
         Process.Start(servicePSI);
       }
+
+      Settings.IsKeepAliveServiceRunning = true;
     }
     finally
     {

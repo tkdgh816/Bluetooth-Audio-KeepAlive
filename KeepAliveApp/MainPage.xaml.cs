@@ -102,12 +102,12 @@ public sealed partial class MainPage : Page
     {
       case ContentDialogResult.Primary:
         Program.QuitKeepAliveService();
+        ViewModel.Settings.IsKeepAliveServiceRunning = false;
         Application.Current.Exit();
         break;
       case ContentDialogResult.Secondary:
         Application.Current.Exit();
         break;
-
     }
   }
 }
